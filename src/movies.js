@@ -3,40 +3,60 @@
 function getAllDirectors(dirArr){
     return dirArr.map(movie => {
         return movie.director
-    })
+    });
 }
 
 // _Bonus_: It seems some of the directors had directed multiple movies so they will pop up multiple times in the array of directors. How could you "clean" a bit this array and make it unified (without duplicates)?
 
 // Iteration 2: Steven Spielberg. The best? - How many drama movies did STEVEN SPIELBERG direct?
 
-function howManyMovies (array) {
+function howManyMovies(array) {
     return array.filter((movie) => {
-        const directedStevenS = movie.director  == 'Steven Spielberg';
-        const dramaMovie = movie.genre.includes('Drama');
-        return directedStevenS && dramaMovie;
+      const directedStevenS = movie.director == "Steven Spielberg";
+      const dramaMovie = movie.genre.includes("Drama");
+      return directedStevenS && dramaMovie;
     }).length;
-};
+  }
 
 // Iteration 3: All rates average - Get the average of all rates with 2 decimals
 
+// function ratesAverage(myArr) {
+
+//     if(myArr.length == 0) {
+//         return 0;
+//     }
+
+//     const ratesArr = myArr.map(x => x.rate);
+//     const reducer  = (acc, curValue) => acc += curValue;
+
+//     const filtered = ratesArr.filter(function(item) {
+//         return (parseInt(item) == item);
+//     });
+
+//     return Number(((filtered.reduce(reducer))/myArr.length).toFixed(2));
+// }
+
 function ratesAverage(myArr) {
-
-    if(myArr.length == 0) {
-        return 0;
-    }
-
-    const ratesArr = myArr.map(x => x.rate);
-    const reducer  = (acc, curValue) => acc += curValue;
-
-    const filtered = ratesArr.filter(function(item) {
-        return (parseInt(item) == item);
-    });
-
-    return Number(((filtered.reduce(reducer))/myArr.length).toFixed(2));
+  return (
+    Number(
+      (
+        myArr.reduce((acc, movie) => {
+          return (acc += movie.rate || 0);
+        }, 0) / myArr.length
+      ).toFixed(2)
+    ) || 0
+  );
 }
 
 // Iteration 4: Drama movies - Get the average of Drama Movies
+
+function dramaMoviesRate(array) {
+  let filteredDramaMovies = array.filter((eachMovie) => {
+    return eachMovie.genre.includes('Drama')
+  })
+
+  return ratesAverage(filteredDramaMovies)
+}
 
 // Iteration 5: Ordering by year - Order by year, ascending (in growing order)
 
